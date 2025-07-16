@@ -138,42 +138,26 @@
 <script>
   document.getElementById("resellerForm").addEventListener("submit", async function (e) {
     e.preventDefault(); 
-    const source = document.getElementById("source").value;
-    const experience = document.getElementById("experience").value;
-    const software = document.getElementById("software").value;
-    const plan = document.getElementById("plan").value;
-    const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
-    const discordId = document.getElementById("discordId").value;
-    const discordInv = document.getElementById("discordInv").value;
-    const locationsLink = document.getElementById("locationsLink").value;
-    const embed = {
-      embeds: [
-        {
-          title: "Nova Aplicação de Revendedor",
-          color: 5814783,
-          fields: [
-            { name: "Onde nos encontrou", value: source },
-            { name: "Quanto tempo vendendo software?", value: experience },
-            { name: "Qual software quer revender?", value: software },
-            { name: "Qual plano deseja comprar?", value: plan },
-            { name: "Número de Telefone", value: phone },
-            { name: "Email", value: email },
-            { name: "ID do Discord", value: discordId },
-            { name: "Convite para servidor Discord", value: discordInv },
-            { name: "Locais para vender o software", value: locationsLink },
-          ],
-          timestamp: new Date().toISOString(),
-        },
-      ],
-    };
-    await fetch("https://discordapp.com/api/webhooks/1367101952831520909/7LHOLP4tODf2XCDaWsZ09Ch8v5GVm_cmEgFF-AaadS9FSjBR3vNIXFz1KFezM09ZIcoB", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(embed),
-    });
-
-    alert("Formulário enviado com sucesso!");
+    
+    const formData = new FormData(this);
+    
+    try {
+      const response = await fetch("process_reseller.php", {
+        method: "POST",
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert("Aplicação enviada com sucesso! Nossa equipe analisará em breve.");
+        this.reset();
+      } else {
+        alert("Erro: " + result.message);
+      }
+    } catch (error) {
+      alert("Erro ao enviar formulário. Tente novamente.");
+    }
   });
 </script>
 

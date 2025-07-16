@@ -100,6 +100,7 @@ $recent_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li><a href="products.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🛍️ Produtos</a></li>
                     <li><a href="keys.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🔑 Keys</a></li>
                     <li><a href="sales.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">💰 Vendas</a></li>
+                    <li><a href="resellers.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🤝 Resellers</a></li>
                     <li><a href="transactions.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">💳 Transações</a></li>
                     <li><a href="settings.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">⚙️ Configurações</a></li>
                 </ul>

@@ -13,12 +13,12 @@ $error = '';
 
 // Processar atualização do perfil
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $full_name = $_POST['full_name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $current_password = $_POST['current_password'];
-    $new_password = $_POST['new_password'];
-    $confirm_password = $_POST['confirm_password'];
+    $full_name = $_POST['full_name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $current_password = $_POST['current_password'] ?? '';
+    $new_password = $_POST['new_password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
     
     // Verificar senha atual se nova senha foi fornecida
     if (!empty($new_password)) {
@@ -161,7 +161,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 <div>
                     <label class="block text-white mb-2 font-medium">Telefone</label>
-                    <input type="tel" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" 
+                    <input type="tel" name="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" 
                            class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all">
                 </div>
                 

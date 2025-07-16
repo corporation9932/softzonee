@@ -37,6 +37,12 @@ $stmt = $db->prepare($query);
 $stmt->execute();
 $stats['available_keys'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
+// Aplicações de reseller pendentes
+$query = "SELECT COUNT(*) as total FROM reseller_applications WHERE status = 'pending'";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$stats['pending_resellers'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
 // Vendas recentes
 $query = "SELECT s.*, u.username, p.name as product_name 
     FROM sales s 
@@ -100,7 +106,16 @@ $recent_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li><a href="products.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🛍️ Produtos</a></li>
                     <li><a href="keys.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🔑 Keys</a></li>
                     <li><a href="sales.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">💰 Vendas</a></li>
-                    <li><a href="resellers.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">🤝 Resellers</a></li>
+                    <li>
+                        <a href="resellers.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors relative">
+                            🤝 Resellers
+                            <?php if ($stats['pending_resellers'] > 0): ?>
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                    <?php echo $stats['pending_resellers']; ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                    </li>
                     <li><a href="transactions.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">💳 Transações</a></li>
                     <li><a href="settings.php" class="block px-4 py-2 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">⚙️ Configurações</a></li>
                 </ul>
@@ -110,7 +125,7 @@ $recent_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Main Content -->
         <main class="flex-1 p-8">
             <!-- Estatísticas -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
                 <div class="bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/20 rounded-2xl p-6">
                     <h3 class="text-blue-400 text-sm font-medium mb-2">Total Usuários</h3>
                     <p class="text-3xl font-bold text-white"><?php echo number_format($stats['total_users']); ?></p>
@@ -130,6 +145,10 @@ $recent_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="bg-gradient-to-r from-red-500/20 to-red-600/20 border border-red-500/20 rounded-2xl p-6">
                     <h3 class="text-red-400 text-sm font-medium mb-2">Keys Disponíveis</h3>
                     <p class="text-3xl font-bold text-white"><?php echo number_format($stats['available_keys']); ?></p>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/20 rounded-2xl p-6">
+                    <h3 class="text-orange-400 text-sm font-medium mb-2">Resellers Pendentes</h3>
+                    <p class="text-3xl font-bold text-white"><?php echo number_format($stats['pending_resellers']); ?></p>
                 </div>
             </div>
 

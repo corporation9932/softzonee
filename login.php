@@ -6,9 +6,9 @@ $error = '';
 $success = '';
 
 // Processar login
-if ($_POST['action'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if (isset($_POST['action']) && $_POST['action'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
     
     if ($auth->login($username, $password)) {
         if ($_SESSION['role'] === 'admin') {
@@ -23,12 +23,12 @@ if ($_POST['action'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Processar registro
-if ($_POST['action'] === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $full_name = $_POST['full_name'];
+if (isset($_POST['action']) && $_POST['action'] === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $full_name = $_POST['full_name'] ?? '';
     
     if ($password !== $confirm_password) {
         $error = 'As senhas não coincidem';

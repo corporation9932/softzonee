@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 class Auth {
     private $db;
@@ -77,7 +77,7 @@ class Auth {
     
     public function requireLogin() {
         if (!$this->isLoggedIn()) {
-            header('Location: login.php');
+            header('Location: ../login.php');
             exit();
         }
     }
@@ -85,7 +85,7 @@ class Auth {
     public function requireAdmin() {
         $this->requireLogin();
         if (!$this->isAdmin()) {
-            header('Location: dashboard.php');
+            header('Location: ../user/dashboard.php');
             exit();
         }
     }
@@ -96,8 +96,8 @@ class Auth {
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':action', $action);
         $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':ip', $_SERVER['REMOTE_ADDR']);
-        $stmt->bindParam(':user_agent', $_SERVER['HTTP_USER_AGENT']);
+        $stmt->bindParam(':ip', $_SERVER['REMOTE_ADDR'] ?? '');
+        $stmt->bindParam(':user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '');
         $stmt->execute();
     }
 }

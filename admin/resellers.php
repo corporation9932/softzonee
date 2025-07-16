@@ -83,6 +83,12 @@ foreach ($stats_raw as $stat) {
     </header>
 
     <div class="container mx-auto px-4 py-8">
+        <?php if (isset($_GET['success'])): ?>
+            <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-6">
+                <p class="text-green-400 text-sm">✅ Aplicação processada com sucesso!</p>
+            </div>
+        <?php endif; ?>
+
         <!-- Estatísticas -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-yellow-500/20 border border-yellow-500/20 rounded-2xl p-6">

@@ -56,6 +56,12 @@ $keys = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </header>
 
     <div class="container mx-auto px-4 py-8">
+        <?php if (isset($_GET['success']) || isset($_GET['payment'])): ?>
+            <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-6">
+                <p class="text-green-400 text-sm">✅ Compra realizada com sucesso! Sua key está disponível abaixo.</p>
+            </div>
+        <?php endif; ?>
+
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold mb-4">Minhas <span class="text-gray-400">Licenças</span></h1>
             <p class="text-white/70">Gerencie suas keys e licenças ativas</p>
